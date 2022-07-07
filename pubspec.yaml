@@ -1,0 +1,33 @@
+name: xyz
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.17.3 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  get: 4.6.5
+  sizer: ^2.0.15
+  carousel_slider: ^4.1.1
+  carousel_pro: ^1.0.0
+  splashscreen: ^1.3.5
+  flutter_svg: ^1.1.1
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  flutter_lints: ^2.0.0
+  lints: 2.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  uses-material-design: true
+
+  assets:
+    - assets/splash/
+    - assets/signup_signin/
+    - assets/images/
+    - assets/svg/
+
