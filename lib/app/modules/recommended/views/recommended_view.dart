@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:xyz/app/modules/home/controllers/home_controller.dart';
 import 'package:xyz/services/colors.dart';
 import 'package:xyz/services/responsiveSize.dart';
 import 'package:xyz/widget/global_widget.dart';
@@ -23,41 +24,48 @@ class RecommendedView extends GetView<RecommendedController> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    //  Icon(Icons.arrow_back,size: 17.kh,),
-                    /*Align(
-                      alignment: Alignment.center,
-                      child: textWidget(
-                        'Recommended',
-                        TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17.kh,
-                            color: ColorUtil.kPrimaryBlack),
-                      ),
-                    ),*/
+
                     SizedBox(
                       height: 32.kh,
                     ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        homeCardWidget("assets/images/home_flower.png"),
-                        homeCardWidget("assets/images/home_image_2.png"),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        homeCardWidget("assets/images/home_image_3.png"),
-                        homeCardWidget("assets/images/home_image_4.png"),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        homeCardWidget("assets/images/home_image_5.png"),
-                        homeCardWidget("assets/images/home_image_6.png"),
-                      ],
+                    Obx(() {
+                      return
+                      GridView.count(shrinkWrap: true,
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 4.0,
+                          mainAxisSpacing: 8.0,
+                          children: List.generate(Get
+                              .find<HomeController>()
+                              .recommendedData
+                              .value
+                              .recommSubCategories!
+                              .length, (index) {
+                            return InkWell(onTap: () {
+                              Get.toNamed("/track");
+                            }, child: homeCardWidget("${Get
+                                .find<HomeController>()
+                                .recommendedData
+                                .value
+                                .recommSubCategories?[index]?.coverImage}",
+                                "${Get
+                                    .find<HomeController>()
+                                    .recommendedData
+                                    .value
+                                    .recommSubCategories?[index]?.numOfTracks}",
+                                "${Get
+                                    .find<HomeController>()
+                                    .recommendedData
+                                    .value
+                                    .recommSubCategories?[index]?.name}","${Get
+                                    .find<HomeController>()
+                                    .recommendedData
+                                    .value
+                                    .recommSubCategories?[index]?.Id}"));
+                          }
+                          )
+                      );
+                    }
                     ),
 
                   ]),

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:xyz/app/modules/home/controllers/home_controller.dart';
 
 class SettingController extends GetxController {
   //TODO: Implement SettingController
@@ -6,6 +7,7 @@ class SettingController extends GetxController {
   final count = 0.obs;
   @override
   void onInit() {
+    Get.find<HomeController>().fetchUserData();
     super.onInit();
   }
 

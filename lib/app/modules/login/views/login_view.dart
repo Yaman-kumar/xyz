@@ -110,15 +110,15 @@ class LoginView extends GetView<LoginController> {
                     ),
                     Row(mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        authenticationLogoWidget("assets/svg/apple_logo.svg"),
+                        authenticationLogoWidget("assets/svg/apple_logo.svg","apple"),
                         SizedBox(
                           width: 47.kw,
                         ),
-                        authenticationLogoWidget("assets/svg/google_logo.svg"),
+                        authenticationLogoWidget("assets/svg/google_logo.svg","google"),
                         SizedBox(
                           width: 47.kw,
                         ),
-                        authenticationLogoWidget("assets/svg/facebook_logo.svg"),
+                        authenticationLogoWidget("assets/svg/facebook_logo.svg","facebook"),
                       ],
                     ),
                     SizedBox(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:xyz/services/colors.dart';
 import 'package:xyz/services/responsiveSize.dart';
 import 'package:xyz/widget/global_widget.dart';
@@ -9,6 +10,7 @@ import 'package:xyz/widget/global_widget.dart';
 import '../controllers/player_ui_controller.dart';
 
 class PlayerUiView extends GetView<PlayerUiController> {
+  final player = AudioPlayer();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,14 +100,26 @@ class PlayerUiView extends GetView<PlayerUiController> {
                   ),
                 ),
               ),
-              Container(height:64 ,width: 64,
-                decoration: BoxDecoration(
-                  //color: ColorUtil.kPrimaryWhite,
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: SvgPicture.asset(
-                    "assets/svg/play_button.svg",
+              InkWell(onTap: () async {
+
+                await player.setUrl(           // Load a URL
+                    'https://allayya-tracks.s3.us-west-1.amazonaws.com/ethereal-meditation-airy-and-tranquil-110249.mp3');                 // Schemes: (https: | file: | asset: )
+                player.volume;
+                player.play();
+
+               // await controller.player.value.play();
+              },
+                child: Container(height:64 ,width: 64,
+                  decoration: BoxDecoration(
+                    //color: ColorUtil.kPrimaryWhite,
+                    shape: BoxShape.circle,
+                  ),
+                  child:
+                     Center(
+                      child: SvgPicture.asset(color: Colors.transparent,
+                        "assets/svg/play_button.svg",
+
+                    ),
                   ),
                 ),
               ),

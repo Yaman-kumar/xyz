@@ -79,28 +79,14 @@ class PreSignUpView extends GetView<PreSignUpController> {
                             ),
                           ),
                         );
-                         /* GetBuilder<PreSignUpController>(
-                          init: PreSignUpController(),
-                          builder: (preSignUpController) {
-                            return Container(
-                              width: 8.0.kw,
-                              height: 8.0.kh,
-                              margin: EdgeInsets.symmetric(vertical: 10.0.kh, horizontal: 2.0.kw),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: preSignUpController.currentPos == index
-                                    ? ColorUtil.secondary_orange_allayya
-                                    : ColorUtil.secondary_grey_1,
-                              ),
-                            );
-                          }
-                        );*/
+
                       }).toList(),
                     ),
-                    buttonWidget('/sign-up','Get Started',ColorUtil.secondary_orange_allayya,TextStyle(fontSize: 17.kh,color: ColorUtil.kPrimaryWhite)),
                     SizedBox(height: 20.kh,),
+                    buttonWidget('/sign-up','Get Started',ColorUtil.secondary_orange_allayya,TextStyle(fontSize: 17.kh,color: ColorUtil.kPrimaryWhite)),
+                   /* SizedBox(height: 20.kh,),
                     richTextWidget(TextStyle(),TextStyle(color: ColorUtil.kPrimaryBlack,
-                        fontWeight: FontWeight.bold),),
+                        fontWeight: FontWeight.bold),),*/
 
                   ],
                 ),

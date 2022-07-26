@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
+import 'package:xyz/app/modules/musicplayer/music_player_utils/page_manager.dart';
+import 'package:xyz/app/modules/musicplayer/music_player_utils/services/service_locator.dart';
 import 'package:xyz/app/routes/app_pages.dart';
+import 'package:xyz/services/storage.dart';
 
 class SplashController extends GetxController {
   //TODO: Implement SplashController
@@ -15,18 +18,27 @@ class SplashController extends GetxController {
   void onInit() {
     super.onInit();
     print("splash");
+    onPageLoad();
+    getIt<PageManager>().init();
   }
 
   @override
   void onReady() {
     super.onReady();
-    Future.delayed(Duration(seconds: 5), () async{
+
+  }
+
+  onPageLoad()async{
+    await Future.delayed(Duration(seconds: 3), () async{
       // Get.offAllNamed(Routes.ONBOARDING);
-      Get.offAllNamed(Routes.PRE_SIGN_UP);
+      if(Get.find<GetStorageService>().getisLoggedIn){
+        Get.offAllNamed(Routes.HOME);
+      }
+      else
+        Get.offAllNamed(Routes.PRE_SIGN_UP);
 
     });
   }
-
   @override
   void onClose() {}
   void increment() => count.value++;

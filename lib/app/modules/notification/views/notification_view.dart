@@ -26,19 +26,32 @@ class NotificationView extends GetView<NotificationController> {
         decoration: BoxDecoration(
           color: ColorUtil.allayya_background,
         ),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0,8,0,8),
-            child: textWidget("Today", TextStyle()),
-          ),
-          notificationCardWidget(),
-          notificationCardWidget(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0,8,0,8),
-            child: textWidget("This Week", TextStyle()),
-          ),
-          notificationCardWidget(),
-        ]),
+        child: SingleChildScrollView(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+              child: textWidget("Today", TextStyle()),
+            ),
+            Obx(() {
+              return controller.loader.value == false
+                  ? controller.userNotifivation.value.results! > 0
+                      ? RefreshIndicator(onRefresh:Get.find<NotificationController>().GetAllNotification,
+                        child: ListView.builder(shrinkWrap: true,
+                            itemCount: controller.userNotifivation.value.results,
+                            itemBuilder: (context, index) {
+                              return notificationCardWidget((controller.userNotifivation.value.notifications?[index]?.title).toString(),(controller.userNotifivation.value.notifications?[index]?.desc).toString());
+                            }),
+                      )
+                      : Center(child: Text("No notification"))
+                  : Center(child: progressBAr());
+            }),
+          /*  Padding(
+              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+              child: textWidget("This Week", TextStyle()),
+            ),*/
+           // notificationCardWidget(),
+          ]),
+        ),
       ),
       bottomNavigationBar: bottomNavigationDesign(context),
     );

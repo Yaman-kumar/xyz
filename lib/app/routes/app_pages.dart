@@ -10,6 +10,8 @@ import 'package:xyz/app/modules/home/bindings/home_binding.dart';
 import 'package:xyz/app/modules/home/views/home_view.dart';
 import 'package:xyz/app/modules/login/bindings/login_binding.dart';
 import 'package:xyz/app/modules/login/views/login_view.dart';
+import 'package:xyz/app/modules/musicplayer/bindings/musicplayer_binding.dart';
+import 'package:xyz/app/modules/musicplayer/views/musicplayer_view.dart';
 import 'package:xyz/app/modules/navbar/bindings/navbar_binding.dart';
 import 'package:xyz/app/modules/navbar/views/navbar_view.dart';
 import 'package:xyz/app/modules/notification/bindings/notification_binding.dart';
@@ -127,6 +129,11 @@ class AppPages {
       name: _Paths.PLAYER_UI,
       page: () => PlayerUiView(),
       binding: PlayerUiBinding(),
+    ),
+    GetPage(
+      name: _Paths.MUSICPLAYER,
+      page: () => MusicplayerView(),
+      binding: MusicplayerBinding(),
     ),
   ];
 }

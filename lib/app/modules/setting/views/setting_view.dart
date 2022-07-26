@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:xyz/app/modules/home/controllers/home_controller.dart';
 import 'package:xyz/services/colors.dart';
 import 'package:xyz/services/responsiveSize.dart';
 import 'package:xyz/widget/global_widget.dart';
@@ -14,8 +16,7 @@ class SettingView extends GetView<SettingController> {
     return Scaffold(
       appBar: appBarWithoutIconWidget(
         "Settings",
-        TextStyle(
-            fontWeight: FontWeight.bold,
+        GoogleFonts.nunito(fontWeight: FontWeight.bold,
             fontSize: 17,
             color: ColorUtil.kPrimaryBlack),
       ),
@@ -29,7 +30,7 @@ class SettingView extends GetView<SettingController> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-            child: textWidget("Account", TextStyle()),
+            child: textWidget("Account", GoogleFonts.nunito()),
           ),
 
           Container(
@@ -51,18 +52,28 @@ class SettingView extends GetView<SettingController> {
               ],
             ),
             child: Column(children: [
-              ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage(
-                      "assets/images/home_flower.png"), // no matter how big it is, it won't overflow
-                ),
-                title: textWidget(
-                  "Welcome",
-                  TextStyle(),
-                ),
-                subtitle: textWidget(
-                  "Samuel Liza",
-                  TextStyle(fontWeight: FontWeight.bold),
+              Obx(()=>
+                 ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        (Get.find<HomeController>()
+                            .userDatainfo
+                            .value
+                            .user!
+                            .image)
+                            .toString())),
+                  title: textWidget(
+                    "Welcome",
+                    GoogleFonts.nunito(),
+                  ),
+                  subtitle: textWidget(
+                    "${ (Get.find<HomeController>()
+                        .userDatainfo
+                        .value
+                        .user!
+                        .name)}",GoogleFonts.nunito(fontWeight: FontWeight.bold)
+                    ,
+                  ),
                 ),
               ),
               Divider(),
@@ -88,7 +99,7 @@ class SettingView extends GetView<SettingController> {
                   ),
                   title: Padding(
                     padding: const EdgeInsets.fromLTRB(0,8,0,8),
-                    child: textWidget("Update Account Details", TextStyle(),),
+                    child: textWidget("Update Account Details", GoogleFonts.nunito(),),
                   ),
                   trailing: Icon(Icons.arrow_forward_ios,color: ColorUtil.secondary_orange_allayya,),
                 ),
@@ -116,7 +127,7 @@ class SettingView extends GetView<SettingController> {
                   ),
                   title: Padding(
                     padding: const EdgeInsets.fromLTRB(0,8,0,8),
-                    child: textWidget("Your Favorite List", TextStyle(),),
+                    child: textWidget("Your Favorite List", GoogleFonts.nunito(),),
                   ),
                   trailing: Icon(Icons.arrow_forward_ios,color: ColorUtil.secondary_orange_allayya,),
                 ),
@@ -126,7 +137,7 @@ class SettingView extends GetView<SettingController> {
 
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-            child: textWidget("Support", TextStyle()),
+            child: textWidget("Support", GoogleFonts.nunito()),
           ),
           Container(
             decoration: BoxDecoration(
@@ -169,7 +180,7 @@ class SettingView extends GetView<SettingController> {
                   ),
                   title: Padding(
                     padding: const EdgeInsets.fromLTRB(0,8,0,8),
-                    child: textWidget("Terms & Conditions", TextStyle(),),
+                    child: textWidget("Terms & Conditions", GoogleFonts.nunito(),),
                   ),
                   trailing: Icon(Icons.arrow_forward_ios,color: ColorUtil.secondary_orange_allayya,),
                 ),
@@ -194,7 +205,7 @@ class SettingView extends GetView<SettingController> {
                 ),
                 title: Padding(
                   padding: const EdgeInsets.fromLTRB(0,8,0,8),
-                  child: textWidget("Privacy Policies", TextStyle(),),
+                  child: textWidget("Privacy Policies", GoogleFonts.nunito(),),
                 ),
                 trailing: Icon(Icons.arrow_forward_ios,color: ColorUtil.secondary_orange_allayya,),
               ),

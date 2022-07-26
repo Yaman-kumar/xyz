@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:xyz/app/modules/musicplayer/music_player_utils/page_manager.dart';
+import 'package:xyz/app/modules/musicplayer/music_player_utils/services/service_locator.dart';
+import 'package:xyz/app/modules/sign_up/controllers/sign_up_controller.dart';
 
 class PreSignUpController extends GetxController {
   //TODO: Implement PreSignUpController
@@ -18,9 +22,12 @@ class PreSignUpController extends GetxController {
 
   }
 
+
   @override
   void onInit() {
+
     super.onInit();
+
   }
 
   @override

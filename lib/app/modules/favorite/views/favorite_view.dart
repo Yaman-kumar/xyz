@@ -1,7 +1,14 @@
+import 'package:audio_service/audio_service.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:xyz/app/modules/home/controllers/home_controller.dart';
+import 'package:xyz/app/modules/musicplayer/music_player_utils/MiniPlayer.dart';
+import 'package:xyz/app/modules/musicplayer/music_player_utils/services/service_locator.dart';
+import 'package:xyz/app/modules/musicplayer/views/musicplayer_view.dart';
 import 'package:xyz/services/colors.dart';
 import 'package:xyz/services/responsiveSize.dart';
 import 'package:xyz/widget/global_widget.dart';
@@ -13,16 +20,21 @@ class FavoriteView extends GetView<FavoriteController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          color: Color(0xFFFDF2E6),
+          color: ColorUtil.allayya_background,
           height: 812.kh,
           child: Stack(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    Icons.arrow_back,
-                    color: ColorUtil.kPrimaryBlack,
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: ColorUtil.kPrimaryBlack,
+                    ),
                   ),
                   textWidget("Nature", TextStyle(fontWeight: FontWeight.bold)),
                   Text(""),
@@ -31,7 +43,8 @@ class FavoriteView extends GetView<FavoriteController> {
               Container(
                 height: 210.kh,
                 width: double.infinity,
-                color: Color(0xFFFDF2E6),
+                color: Color(0xFFFDF2E6)
+
               ),
               Align(
                 alignment: Alignment.bottomCenter,
@@ -49,85 +62,217 @@ class FavoriteView extends GetView<FavoriteController> {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        textWidget(
-                            "7 Tracks", TextStyle(fontWeight: FontWeight.bold)),
+                        Obx(
+                              () => textWidget(
+                              "${Get.find<HomeController>().userfav.value.results == null ? 7 : Get.find<HomeController>().userfav.value.results} Tracks",
+                              TextStyle(fontWeight: FontWeight.bold,fontSize: 17)),
+                        ),
                         SizedBox(
                           height: 560.kh,
                           width: double.infinity,
-                          child: ListView.builder(
-                              itemCount: 2,
-                              itemBuilder: (context, index) {
-                                return Column(
-                                  children: [
-                                    ListTile(
-                                      leading: SizedBox(
-                                        height: 46.0,
-                                        width: 42.0, // fixed width and height
-                                        child: Image.asset(
-                                          "assets/images/list_item_1.png",
-                                        ),
-                                      ),
-                                      title: textWidget(
-                                        "When It Rain It Pours",
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                      ),
-                                      subtitle: textWidget(
-                                        "Mestizo",
-                                        TextStyle(
-                                          color: Color(0xFF818181),
-                                        ),
-                                      ),
-                                      trailing: SvgPicture.asset(
-                                        "assets/svg/heart_inactive.svg",
-                                      ),
+                          child: Obx(
+                                () {
+                              if (controller.loader == false) {
+                                if((Get.find<HomeController>().userfav.value.results!)>0) {
+                                  return ListView.builder(
+                                      itemCount:
+                                      Get
+                                          .find<HomeController>()
+                                          .userfav
+                                          .value
+                                          .results,
+                                      itemBuilder: (context, index) {
+                                        return Column(
+                                          children: [
+                                            Obx(
+                                                  () =>
+                                                  InkWell(
+                                                    onTap: () {
+                                                      /*Get.find<PlayerUiController>()
+                                                    .playTrack(controller
+                                                        .trackList
+                                                        .value
+                                                        .tracks![index]!
+                                                        .audioTrack
+                                                        .toString());*/
+                                                      Get.to(MusicplayerView(),
+                                                          arguments: [
+                                                            controller
+                                                                .mediaItems
+                                                                .value,
+                                                            index
+                                                          ], opaque: false);
+                                                    },
 
-                                    ),
-                                    Divider(),
-                                  ],
-                                );
-                              }),
+                                                    child: ListTile(
+                                                      leading: Transform.translate(offset: Offset(-16, 0),
+                                                        child: SizedBox(
+                                                          height: 42.0,
+                                                          width: 46.32,
+                                                          // fixed width and height
+                                                          child: Container(
+                                                            child: CachedNetworkImage(
+                                                              placeholder: (context, url) => Center(child: progressBAr()),
+                                                              errorWidget: (context, url, error) => Icon(Icons.error),
+                                                              fit: BoxFit.fill,
+                                                              imageUrl: (Get
+                                                                  .find<
+                                                                  HomeController>()
+                                                                  .userfav
+                                                                  .value
+                                                                  .favoriteTracks
+                                                                  ?.tracks?[index]
+                                                                  ?.thumbnailImage).toString(),
+                                                              imageBuilder: (context, imageProvider) {
+                                                                // you can access to imageProvider
+                                                                return ClipRRect(
+                                                                  borderRadius: BorderRadius.circular(8.0),
+                                                                  child: Image.network(
+                                                                    (Get
+                                                                        .find<
+                                                                        HomeController>()
+                                                                        .userfav
+                                                                        .value
+                                                                        .favoriteTracks
+                                                                        ?.tracks?[index]
+                                                                        ?.thumbnailImage).toString(),
+                                                                    fit: BoxFit.fill,
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      title: Transform.translate(offset: Offset(-16, 0),
+                                                        child: textWidget(
+                                                          "${Get
+                                                              .find<
+                                                              HomeController>()
+                                                              .userfav
+                                                              .value
+                                                              .favoriteTracks
+                                                              ?.tracks?[index]
+                                                              ?.title}",
+                                                          TextStyle(
+                                                              fontWeight:
+                                                              FontWeight.bold),
+                                                        ),
+                                                      ),
+                                                      subtitle: Transform.translate(offset: Offset(-16, 0),
+                                                        child: textWidget(
+                                                          "${Get
+                                                              .find<
+                                                              HomeController>()
+                                                              .userfav
+                                                              .value
+                                                              .favoriteTracks
+                                                              ?.tracks?[index]
+                                                              ?.artist}",
+                                                          TextStyle(
+                                                            color: Color(
+                                                                0xFF818181),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      trailing: InkWell(
+                                                        onTap: () async {
+                                                          await controller
+                                                              .removeFav((Get
+                                                              .find<
+                                                              HomeController>()
+                                                              .userfav
+                                                              .value
+                                                              .favoriteTracks
+                                                              ?.tracks?[index]
+                                                              ?.Id).toString());
+                                                          controller
+                                                              .addFavDataToPlay();
+                                                        },
+                                                        child:
+                                                            SvgPicture.asset(
+                                                          "assets/svg/activefav.svg",
+                                                        )
+
+                                                      ),
+                                                    ),
+                                                  ),
+                                            ),
+                                            Divider(),
+                                          ],
+                                        );
+                                      });
+                                }
+                                else{
+                                  return Center(child:Text("Add songs to your favorites",style: GoogleFonts.nunito(),));
+                                }
+
+                              }
+                              return Center(
+                                child: progressBAr(),
+                              );
+                            },
+                          ),
                         ),
                       ]),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 52, 16, 0),
+                padding: EdgeInsets.fromLTRB(16.kh, 52.kh, 16.kh, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    InkWell(onTap: (){
-                      Get.back();
-                    },
-                      child: Icon(
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(height: 37,width: 37,child:Icon(
                         Icons.arrow_back,
                         color: ColorUtil.kPrimaryBlack,
-                      ),
+                      ),decoration: BoxDecoration(color: Colors.white.withOpacity(0.7),borderRadius: BorderRadius.all(Radius.circular(8))),)
                     ),
                     textWidget(
-                        "Your Favorite",
-                        TextStyle(
-                            fontWeight: FontWeight.bold,
+                        "Your Favorites",
+                        GoogleFonts.nunito(fontWeight: FontWeight.bold,
                             color: ColorUtil.kPrimaryBlack,
-                            fontSize: 17.kh)),
+                            fontSize: 17)),
+
                     Text(""),
                   ],
                 ),
               ),
+
               Align(
                 alignment: Alignment(0.88, -0.6),
-                child: Container(
-                  height: 56.kw,
-                  width: 56.kw,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: ColorUtil.secondary_orange_allayya),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      "assets/svg/play_icon.svg",
+                child: Material(elevation:5 ,borderRadius: BorderRadius.all(Radius.circular(50)),
+                  child: InkWell(onTap: (){
+                    Get.to(MusicplayerView(),arguments: [controller.mediaItems.value,0],opaque: false);
+                  },
+                    child: Container(
+                      height: 56.kw,
+                      width: 56.kw,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color(0xFFF89E53)),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          "assets/svg/play_icon.svg",
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              )
+              ),
+
+              Align(alignment: Alignment.bottomCenter,child: StreamBuilder<AudioProcessingState>(
+                  stream: getIt<AudioHandler>().playbackState.map((state) => state.processingState).distinct(),
+                  builder:
+                      (context,snapshot) {
+                    final playing = snapshot.data ?? AudioProcessingState.idle;
+                    return playing == AudioProcessingState.ready ?small_player():SizedBox();
+                  }
+              )),
             ],
           )),
     );

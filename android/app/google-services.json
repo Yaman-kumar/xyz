@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "170776880845",
+    "project_id": "allayya-app-5806d",
+    "storage_bucket": "allayya-app-5806d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:170776880845:android:fc9fc0ce0e5aa1aef1eb84",
+        "android_client_info": {
+          "package_name": "com.abc.xyz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "170776880845-ctiqmute89122gi06jsamit9g310pm48.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abc.xyz",
+            "certificate_hash": "609b390680020556a4059b4475a8af9d03aaf6df"
+          }
+        },
+        {
+          "client_id": "170776880845-61rtdceiefppa4pk989di0pllmc4hl7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcB8uXAytFTkGVuZ8LH7TZwEA3zEJ1x2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "170776880845-61rtdceiefppa4pk989di0pllmc4hl7j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

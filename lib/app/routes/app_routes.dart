@@ -21,6 +21,7 @@ abstract class Routes {
   static const PROFILE = _Paths.PROFILE;
   static const FAVORITE = _Paths.FAVORITE;
   static const PLAYER_UI = _Paths.PLAYER_UI;
+  static const MUSICPLAYER = _Paths.MUSICPLAYER;
 }
 
 abstract class _Paths {
@@ -41,4 +42,5 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   static const FAVORITE = '/favorite';
   static const PLAYER_UI = '/player-ui';
+  static const MUSICPLAYER = '/musicplayer';
 }
