@@ -136,6 +136,8 @@ class ProfileView extends GetView<ProfileController> {
               child: TextField(
                 keyboardType: TextInputType.number,
                 controller: controller.textEditingControllerMobile.value,
+                enabled: controller.textEditingControllerMobile.value.text ==""?false:true,
+
                 // obscureText: true,
                 decoration: InputDecoration(
                   contentPadding:
@@ -164,7 +166,7 @@ class ProfileView extends GetView<ProfileController> {
               height: 48.kh,
               child: TextField(
                 controller: controller.textEditingControllerName.value,
-                //obscureText: true,
+                   //obscureText: true,
                 decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.only(left: 14.0, bottom: 14.0, top: 8.0),
@@ -200,6 +202,7 @@ class ProfileView extends GetView<ProfileController> {
               height: 48.kh,
               child: TextField(
                 controller: controller.textEditingControllerEmail.value,
+                enabled: controller.textEditingControllerEmail.value.text ==""?false:true,
                 //obscureText: true,
                 decoration: InputDecoration(
                   contentPadding:

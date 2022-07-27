@@ -127,25 +127,45 @@ class small_player extends StatelessWidget {
                 ),
                 Spacer(),
 
-                /*ValueListenableBuilder<Map>(
+
+                   /*ValueListenableBuilder<Map>(
+                    valueListenable: pageManager.valueMap,
+                    builder: (_, value, __) {
+                    //  Get.find<MusicplayerController>().favIconColor.value=value['isFav'];
+                      print("value :: ${value['isFav']}");
+                      if(value['isFav']=='true' && Get.find<MusicplayerController>().favIconColor.value='false'){
+                        return InkWell(onTap: (){
+                          Get.find<MusicplayerController>().favIconColor.value='false';
+                        },child:Get.find<MusicplayerController>().favIconColor.value='false'? SvgPicture.asset("assets/svg/activefav.svg"):SvgPicture.asset("assets/svg/activefav.svg")
+                        );
+                      }
+                      else{
+                        return InkWell(onTap: (){
+                          Get.find<MusicplayerController>().favIconColor.value='true';
+                        },child: SvgPicture.asset("assets/svg/heart_inactive.svg"));
+                      }
+                     // value['isFav']==true?? return SvgPicture.asset("assets/svg/activefav.svg"):return SvgPicture.asset("assets/svg/heart_inactive.svg");
+
+                    },
+                  ),*/
+
+                ValueListenableBuilder<Map>(
                   valueListenable: pageManager.valueMap,
                   builder: (_, value, __) {
-                    print("value :: ${value['isFav']}");
-                    return value['isFav']==true?SvgPicture.asset("assets/svg/activefav.svg"):SvgPicture.asset("assets/svg/heart_inactive.svg");
-
-                  },
-                ),
-*/
-                ValueListenableBuilder<String?>(
-                  valueListenable: pageManager.currentSongId,
-                  builder: (_, value, __) {
-                    print("value :: $value");
+                  //  print("value :: $value");
+                    Get.find<MusicplayerController>().favIconColor.value=value['isFav'];
                     return Obx(()=>
                        InkWell(onTap:(){
-                         Get.find<MusicplayerController>().favIconColor.value=!(Get.find<MusicplayerController>().favIconColor.value);
-                        Get.find<TrackController>().addFav(value.toString());
+                         Get.find<MusicplayerController>().favIconColor.value=(Get.find<MusicplayerController>().favIconColor.value=='true')?'false':'true';
+if(Get.find<MusicplayerController>().favIconColor.value=='false'){
+  Get.find<TrackController>().removeFav(value['id']);
+}
+else{
+  Get.find<TrackController>().addFav(value['id']);
+}
+                       // Get.find<TrackController>().addFav(value.toString());
 
-                      },child:Get.find<MusicplayerController>().favIconColor.value==true? SvgPicture.asset("assets/svg/activefav.svg"):SvgPicture.asset("assets/svg/heart_inactive.svg")),
+                      },child:Get.find<MusicplayerController>().favIconColor.value=='true'? SvgPicture.asset("assets/svg/activefav.svg"):SvgPicture.asset("assets/svg/heart_inactive.svg")),
                     ) ;
                   },
                 ),

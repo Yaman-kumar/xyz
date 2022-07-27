@@ -105,7 +105,7 @@ class PlayerUiView extends GetView<PlayerUiController> {
                 await player.setUrl(           // Load a URL
                     'https://allayya-tracks.s3.us-west-1.amazonaws.com/ethereal-meditation-airy-and-tranquil-110249.mp3');                 // Schemes: (https: | file: | asset: )
                 player.volume;
-                player.play();
+               await player.play();
 
                // await controller.player.value.play();
               },

@@ -37,13 +37,13 @@ final imageUpload=ImageUpload().obs;
 
   Future<void> pickImage() async {
     profilestatus.value=1;
-    print("file return ::: ${pickedImage.value}");
+    print("file return ::: ${pickedImage.value.path}");
     final ImagePicker picker = ImagePicker();
 
     try {
       final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      print("image path ${image!.path}");
-      pickedImage.value=File(image.path);
+      print("image path ${pickedImage.value.path}");
+      pickedImage.value=File(image!.path);
       print("pickedImage path ${pickedImage.value.path}");
     }catch(e){
       throw Exception(e);
@@ -52,19 +52,36 @@ final imageUpload=ImageUpload().obs;
 Rx<bool> updateProfileLoade=false.obs;
   Future<void> profileImageUpload() async {
     updateProfileLoade.value=true;
-   var response = await ApiCall().uploadImage(pickedImage.value.path);
-   imageUpload.value=ImageUpload.fromJson(response);
-   print("response ${"${imageUpload.value.url}"}");
-   Get.snackbar("Message", "Profile updated Sucessfully");
-  var body={
-    "image":imageUpload.value.url.toString(),
-    "name" :textEditingControllerName.value.text.toString(),
-    "phone":textEditingControllerMobile.value.text.toString(),
-    "email":textEditingControllerEmail.value.text.toString()
-   };
-   String userId=await Get.find<GetStorageService>().getUserId;
-   await ApiCall().patchDataWithHeaderandBody("/api/user/${userId}",jsonEncode(body));
-   Get.find<HomeController>().fetchUserData();
+    String userId=await Get.find<GetStorageService>().getUserId;
+    if(!(pickedImage.value.path.isEmpty)){
+      var response = await ApiCall().uploadImage(pickedImage.value.path);
+      imageUpload.value=ImageUpload.fromJson(response);
+      print("response ${"${imageUpload.value.url}"}");
+
+
+      var body={
+        "image":imageUpload.value.url.toString(),
+        "name" :textEditingControllerName.value.text.toString(),
+        "phone":textEditingControllerMobile.value.text.toString(),
+        "email":textEditingControllerEmail.value.text.toString()
+      };
+
+      await ApiCall().patchDataWithHeaderandBody("/api/user/${userId}",jsonEncode(body));
+      Get.find<HomeController>().fetchUserData();
+      Get.snackbar("Message", "Profile updated Sucessfully");
+
+    }
+    else{
+
+      var body={
+        "name" :textEditingControllerName.value.text.toString(),
+        "phone":textEditingControllerMobile.value.text.toString(),
+        "email":textEditingControllerEmail.value.text.toString()
+      };
+      await ApiCall().patchDataWithHeaderandBody("/api/user/${userId}",jsonEncode(body));
+      Get.find<HomeController>().fetchUserData();
+      Get.snackbar("Message", "Profile updated Sucessfully");
+    }
     updateProfileLoade.value=false;
   }
 

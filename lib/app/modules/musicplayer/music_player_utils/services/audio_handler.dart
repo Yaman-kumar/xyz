@@ -148,13 +148,13 @@ class MyAudioHandler extends BaseAudioHandler {
   }
 
   @override
-  Future<void> play() => _player.play();
+  Future<void> play() async => await _player.play();
 
   @override
-  Future<void> pause() => _player.pause();
+  Future<void> pause() async => await _player.pause();
 
   @override
-  Future<void> seek(Duration position) => _player.seek(position);
+  Future<void> seek(Duration position) async => await _player.seek(position);
 
   @override
   Future<void> skipToQueueItem(int index) async {
@@ -166,10 +166,10 @@ class MyAudioHandler extends BaseAudioHandler {
   }
 
   @override
-  Future<void> skipToNext() => _player.seekToNext();
+  Future<void> skipToNext()async => await _player.seekToNext();
 
   @override
-  Future<void> skipToPrevious() => _player.seekToPrevious();
+  Future<void> skipToPrevious() async => await _player.seekToPrevious();
 
   @override
   Future<void> setRepeatMode(AudioServiceRepeatMode repeatMode) async {

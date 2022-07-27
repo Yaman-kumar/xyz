@@ -14,7 +14,7 @@ class MusicplayerController extends GetxController {
   final mediaItems = <MediaItem>[].obs;
   final index = 0.obs;
   final pageManager = getIt<PageManager>();
-  final favIconColor=false.obs;
+  final favIconColor='false'.obs;
 
 
   @override

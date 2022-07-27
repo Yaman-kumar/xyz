@@ -591,6 +591,7 @@ PreferredSizeWidget appBarWithTabWidget(Widget icon, String name) {
   return AppBar(
     leading: InkWell(
         onTap: () {
+         // Get.find<CategoriesController>().tabController!.dispose();
           Get.back();
           //  Get.find<CategoriesController>().tabController!.dispose();
         },

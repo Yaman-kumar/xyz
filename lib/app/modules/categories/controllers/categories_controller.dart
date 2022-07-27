@@ -27,7 +27,9 @@ class CategoriesController extends GetxController with GetSingleTickerProviderSt
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    tabController!.dispose();
+  }
   void increment() => count.value++;
   Rx<bool> loader=false.obs;
 

@@ -138,7 +138,7 @@ class PageManager {
     _audioHandler.mediaItem.listen((mediaItem) {
       currentSongId.value=mediaItem?.id ?? '';
       isFavStatus.value=mediaItem?.extras?['isFav'] ?? '';
-      valueMap.value={"isFav":"${mediaItem?.extras?['isFav'] ?? ''}","id":"${mediaItem?.id ?? ''}"}??{};
+      valueMap.value={"isFav":"${mediaItem?.extras?['isFav'] ?? ''}","id":"${mediaItem?.id ?? ''}"};
       currentSongTitleNotifier.value = mediaItem?.title ?? '';
       _updateSkipButtons();
     });
@@ -157,8 +157,8 @@ class PageManager {
     }
   }
 
-  void play() => _audioHandler.play();
-  void pause() => _audioHandler.pause();
+  Future<void> play() async => await _audioHandler.play();
+  Future<void> pause() async => await _audioHandler.pause();
 
   void seek(Duration position) => _audioHandler.seek(position);
 
