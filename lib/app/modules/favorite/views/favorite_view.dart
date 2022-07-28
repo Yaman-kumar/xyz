@@ -270,7 +270,7 @@ class FavoriteView extends GetView<FavoriteController> {
                   builder:
                       (context,snapshot) {
                     final playing = snapshot.data ?? AudioProcessingState.idle;
-                    return playing == AudioProcessingState.ready ?small_player():SizedBox();
+                    return playing == AudioProcessingState.ready ?small_player(status: true,):SizedBox();
                   }
               )),
             ],

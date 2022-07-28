@@ -27,8 +27,9 @@ class FavoriteController extends GetxController {
 
   @override
   void onClose() {}
-
+var favStatus=true.obs;
   Future<void> addFavDataToPlay() async {
+    print("favStatus =  ${favStatus.value}");
 loader.value=true;
     var response = await ApiCall().fetchDataWithoutHeader('/api/favorites/${Get.find<GetStorageService>().getUserId}');
     Get.find<HomeController>().userfav.value=UserFavorites.fromJson(response);
@@ -40,7 +41,8 @@ loader.value=true;
           artUri:   Get.find<HomeController>().userfav.value.favoriteTracks?.tracks?[i]?.thumbnailImage == null ? Uri.parse("${Get.find<HomeController>().userfav.value.favoriteTracks?.tracks?[i]?.thumbnailImage}") :Uri.parse("${Get.find<HomeController>().userfav.value.favoriteTracks?.tracks?[i]?.thumbnailImage}"),
           artist: '${Get.find<HomeController>().userfav.value.favoriteTracks?.tracks?[i]?.artist}',
           extras: {
-            'url': '${Get.find<HomeController>().userfav.value.favoriteTracks?.tracks?[i]?.audioTrack}'
+            'url': '${Get.find<HomeController>().userfav.value.favoriteTracks?.tracks?[i]?.audioTrack}',
+            'isFav':'${favStatus.value}'
             ,
           }
       ),

@@ -56,10 +56,10 @@ class PageManager {
 
   loadPlaylist(List<MediaItem> mediaItems,var index) async {
     await  _audioHandler.stop();
-    await _audioHandler.customAction("c");
-    await _audioHandler.addQueueItems(mediaItems);
-    await _audioHandler.skipToQueueItem(index);
-    await _audioHandler.play();
+    await  _audioHandler.customAction("c");
+    await  _audioHandler.addQueueItems(mediaItems);
+    await  _audioHandler.skipToQueueItem(index);
+    await  _audioHandler.play();
     // _audioHandler.customAction("name");
   }
 

@@ -15,13 +15,14 @@ class MusicplayerController extends GetxController {
   final index = 0.obs;
   final pageManager = getIt<PageManager>();
   final favIconColor='false'.obs;
+ // final favIconColortest='false'.obs;
 
 
   @override
-  Future<void> onInit() async {
+   onInit()  {
     mediaItems.value = Get.arguments[0];
     index.value = Get.arguments[1];
-    await  pageManager.loadPlaylist(mediaItems.value,index.value);
+      pageManager.loadPlaylist(mediaItems.value,index.value);
     //print("Song Id  ${IDNotifier.value.value}");
    // fromMiniPlayer.value = Get.arguments[0];
    // print(fromMiniPlayer.value);

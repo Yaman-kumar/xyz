@@ -8,6 +8,7 @@ import 'package:xyz/app/modules/categories/controllers/categories_controller.dar
 import 'package:xyz/app/modules/home/controllers/home_controller.dart';
 import 'package:xyz/app/modules/musicplayer/music_player_utils/MiniPlayer.dart';
 import 'package:xyz/app/modules/musicplayer/music_player_utils/services/service_locator.dart';
+import 'package:xyz/app/modules/musicplayer/views/musicplayer_view.dart';
 import 'package:xyz/app/modules/navbar/controllers/navbar_controller.dart';
 import 'package:xyz/app/modules/sign_up/controllers/sign_up_controller.dart';
 import 'package:xyz/app/modules/welcome/controllers/welcome_controller.dart';
@@ -196,6 +197,7 @@ Widget welcomeCircleSmall(
         child: InkWell(
           onTap: () async {
             Get.find<HomeController>().selectedCategories(index - 1);
+            Get.find<CategoriesController>().tabController!.index=index - 1;
             await Get.find<CategoriesController>().fetchSubCaCategoriesData();
             Get.toNamed('/categories');
           },
@@ -265,7 +267,8 @@ Widget homeCardWidget(String pathAssets, String numberOfTrack, String name,Strin
                 child:
 
                 CachedNetworkImage(
-                  placeholder: (context, url) => Center(child: progressBAr()),
+                  progressIndicatorBuilder: (context,url,ProgessIndicator) => Center(child: progressBAr()),
+                 // placeholder: (context, url) => Center(child: progressBAr()),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                   fit: BoxFit.fill,
                   imageUrl: pathAssets,
@@ -315,7 +318,9 @@ Widget homeCardWidget(String pathAssets, String numberOfTrack, String name,Strin
 Widget homeFavoriteCardWidget(String imageUrl, String title, String subTitle) {
   return InkWell(
     onTap: () {
-     // Get.toNamed(Routes.MUSICPLAYER);
+    /* // Get.toNamed(Routes.MUSICPLAYER);
+      Get.to(MusicplayerView(),arguments: [controller.mediaItems.value,index],opaque: false);*/
+      Get.toNamed(Routes.FAVORITE);
     },
     child: Center(
       child: Container(
@@ -408,7 +413,7 @@ Widget bottomNavigationDesign(context) {
       return Container(height: playing == AudioProcessingState.ready ?150.kh:80.kh,width: double.infinity,
         child: Column(
           children: [
-            playing == AudioProcessingState.ready ?small_player():SizedBox(),
+            playing == AudioProcessingState.ready ?small_player(status: false,):SizedBox(),
             Container(
               height: 80.kh,
               decoration: BoxDecoration(
@@ -591,7 +596,7 @@ PreferredSizeWidget appBarWithTabWidget(Widget icon, String name) {
   return AppBar(
     leading: InkWell(
         onTap: () {
-         // Get.find<CategoriesController>().tabController!.dispose();
+
           Get.back();
           //  Get.find<CategoriesController>().tabController!.dispose();
         },

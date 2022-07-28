@@ -91,7 +91,7 @@ Rx<bool> loader=false.obs;
   loader.value=true;
     await Firebase.initializeApp();
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: kDebugMode?'+91 70426 59990':mobileNumber,
+      phoneNumber: mobileNumber,
       verificationCompleted: (PhoneAuthCredential credential) {
         print("verificationCompleted");
       },

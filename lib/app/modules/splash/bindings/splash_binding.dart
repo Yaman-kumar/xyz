@@ -5,6 +5,7 @@ import 'package:xyz/app/modules/musicplayer/controllers/musicplayer_controller.d
 import 'package:xyz/app/modules/player_ui/controllers/player_ui_controller.dart';
 import 'package:xyz/app/modules/profile/controllers/profile_controller.dart';
 import 'package:xyz/app/modules/sign_up/controllers/sign_up_controller.dart';
+import 'package:xyz/app/modules/track/controllers/track_controller.dart';
 import 'package:xyz/app/modules/welcome/controllers/welcome_controller.dart';
 
 import '../controllers/splash_controller.dart';
@@ -45,6 +46,9 @@ class SplashBinding extends Bindings {
 
     Get.lazyPut<HomeController>(
             () => HomeController(),fenix:true
+    );
+    Get.lazyPut<TrackController>(
+            () => TrackController(),fenix:true
     );
   }
 }

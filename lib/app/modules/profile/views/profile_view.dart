@@ -1,12 +1,15 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:xyz/app/modules/home/controllers/home_controller.dart';
+import 'package:xyz/app/modules/musicplayer/music_player_utils/services/service_locator.dart';
 import 'package:xyz/app/routes/app_pages.dart';
 import 'package:xyz/services/colors.dart';
 import 'package:xyz/services/responsiveSize.dart';
+import 'package:xyz/services/storage.dart';
 import 'package:xyz/widget/global_widget.dart';
 
 import '../controllers/profile_controller.dart';
@@ -238,6 +241,8 @@ class ProfileView extends GetView<ProfileController> {
               height: 48.kh,
               child: ElevatedButton(
                 onPressed: () {
+                  Get.find<GetStorageService>().setisLoggedIn=false;
+                  getIt<AudioHandler>().stop();
                   Get.offAllNamed(Routes.SIGN_UP);
                 },
                 style: ButtonStyle(

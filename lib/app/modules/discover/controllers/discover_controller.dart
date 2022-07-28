@@ -44,8 +44,8 @@ class DiscoverController extends GetxController {
           artUri:   searchTrack.value.tracks?[i]?.thumbnailImage == null ? Uri.parse("${searchTrack.value.tracks?[i]?.thumbnailImage}") :Uri.parse("${searchTrack.value.tracks?[i]?.thumbnailImage}"),
           artist: '${searchTrack.value.tracks?[i]?.artist}',
           extras: {
-            'url': '${searchTrack.value.tracks?[i]?.audioTrack}'
-            ,
+            'url': '${searchTrack.value.tracks?[i]?.audioTrack}',
+            'isFav':'false',
           }
       ),
       );

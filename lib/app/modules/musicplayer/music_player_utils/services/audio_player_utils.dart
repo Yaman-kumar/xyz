@@ -69,15 +69,30 @@ class ArtUri extends StatelessWidget {
     return ValueListenableBuilder<Uri?>(
       valueListenable: pageManager.currentArtUriNotifier,
       builder: (context, value, _) {
-        return Container(
-          height: 816.kh,
-          width: double.infinity,
-          decoration: BoxDecoration(
 
-             image: DecorationImage(image: NetworkImage("${value}"),fit:BoxFit.fill ),
-              color: Colors.black12
-          ),
-        );
+        return
+          CachedNetworkImage(
+            progressIndicatorBuilder: (context,url,ProgessIndicator) => Center(child: progressBAr()),
+            // placeholder: (context, url) => Center(child: progressBAr()),
+            errorWidget: (context, url, error) => SizedBox(),
+            fit: BoxFit.fill,
+            imageUrl: "${value}",
+            imageBuilder: (context, imageProvider) {
+              // you can access to imageProvider
+              return Container(
+                height: 816.kh,
+                width: double.infinity,
+                decoration: BoxDecoration(
+
+                    image: DecorationImage(image: imageProvider,fit:BoxFit.fill ),
+                    color: Colors.black12
+                ),
+              );
+            },
+          );
+
+
+
 
       },
     );

@@ -20,7 +20,7 @@ Widget otpBoxWidget(context, TextEditingController textEditingControllerotp) {
             // hintText: 'Mobile Number',
             hintStyle: TextStyle(color: Colors.white),
             contentPadding:
-                EdgeInsets.only(left: 17.kw, bottom: 14.0, top: 8.0),
+                EdgeInsets.only(left: 17.kw, bottom: 8.0, top: 8.0),
             focusedBorder: OutlineInputBorder(
               borderSide:
                   BorderSide(color: Color.fromRGBO(255, 255, 255, 0.28)),

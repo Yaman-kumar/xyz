@@ -13,7 +13,8 @@ import '../controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
-    //Get.put(HomeController());
+  Get.put(HomeController());
+
     return Scaffold(
       appBar: appBarWithoutIconWidget(
           '${controller.GREETING()}',

@@ -8,6 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:xyz/app/modules/categories/controllers/categories_controller.dart';
 import 'package:xyz/app/modules/home/controllers/home_controller.dart';
 import 'package:xyz/app/modules/musicplayer/music_player_utils/MiniPlayer.dart';
+import 'package:xyz/app/modules/musicplayer/music_player_utils/notifiers/play_button_notifier.dart';
+import 'package:xyz/app/modules/musicplayer/music_player_utils/page_manager.dart';
 import 'package:xyz/app/modules/musicplayer/music_player_utils/services/service_locator.dart';
 import 'package:xyz/app/modules/musicplayer/views/musicplayer_view.dart';
 import 'package:xyz/app/modules/player_ui/controllers/player_ui_controller.dart';
@@ -85,7 +87,7 @@ class TrackView extends GetView<TrackController> {
                       children: [
                         Obx(
                           () => textWidget(
-                              "${controller.trackList.value.results == null ? 7 : controller.trackList.value.results} Tracks",
+                              "${controller.trackList.value.results == null ? 0 : controller.trackList.value.results} Tracks",
                              GoogleFonts.nunito(fontWeight: FontWeight.bold,fontSize: 17) ),
                         ),
                         SizedBox(
@@ -263,9 +265,17 @@ class TrackView extends GetView<TrackController> {
                   builder:
                     (context,snapshot) {
                       final playing = snapshot.data ?? AudioProcessingState.idle;
-                  return playing == AudioProcessingState.ready ?small_player():SizedBox();
+                  return playing == AudioProcessingState.ready ?small_player(status: false,):SizedBox(height: 1,width: 0,);
                 }
               )),
+
+              // Align(alignment: Alignment.bottomCenter,child: ValueListenableBuilder<ButtonState>(
+              //     valueListenable:getIt<PageManager>().playButtonNotifier,
+              //     builder: (_, title, __) {
+              //       return ButtonState.playing == true ?small_player(status: false,):SizedBox(height: 1,width: double.infinity,);
+              //     }
+              // )),
+
             ],
           )),
     );

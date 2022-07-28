@@ -26,12 +26,11 @@ class HomeController extends GetxController {
   Rx<bool> loaderfav = false.obs;
 
   @override
- Future<void> onInit() async {
+  onInit()  {
     super.onInit();
     getIt<PageManager>().init();
-    final User? user = await Aauth.currentUser;
-    signUpController.validateCreatetoken(user!);
-
+    final User? user =  Aauth.currentUser;
+    user == null ?print("Null") : signUpController.validateCreatetoken(user);
     fetchUserData();
     fetchCategoriesData();
     fetchRecommendedData();
@@ -80,7 +79,7 @@ class HomeController extends GetxController {
   var favListemp = false.obs;
 
    fetchFaviorateData() async {
-   String userId= await Get.find<GetStorageService>().getUserId;
+   String userId=  Get.find<GetStorageService>().getUserId;
     print("Get.find<GetStorageService>().getUserId :${Get.find<GetStorageService>().getUserId}");
     loaderfav.value = true;
     var response = await ApiCall().fetchDataWithoutHeader(

@@ -11,67 +11,51 @@ import '../controllers/recommended_controller.dart';
 class RecommendedView extends GetView<RecommendedController> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: appBarWithIconWidget(Icon(Icons.arrow_back,color: ColorUtil.kPrimaryBlack,), "Recommended"),
-      body: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: ColorUtil.allayya_background,
-        ),
-        child: ListView(
+    return Scaffold(backgroundColor: ColorUtil.allayya_background,
+      appBar: appBarWithIconWidget(Icon(Icons.arrow_back,color: ColorUtil.kPrimaryBlack,), "Recommended"),
+      body: Obx(() {
+        return
+        Column(
           children: [
-            Container(
-              margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-                    SizedBox(
-                      height: 32.kh,
-                    ),
-
-                    Obx(() {
-                      return
-                      GridView.count(shrinkWrap: true,
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 4.0,
-                          mainAxisSpacing: 8.0,
-                          children: List.generate(Get
-                              .find<HomeController>()
-                              .recommendedData
-                              .value
-                              .recommSubCategories!
-                              .length, (index) {
-                            return InkWell(onTap: () {
-                              Get.toNamed("/track");
-                            }, child: homeCardWidget("${Get
-                                .find<HomeController>()
-                                .recommendedData
-                                .value
-                                .recommSubCategories?[index]?.coverImage}",
-                                "${Get
-                                    .find<HomeController>()
-                                    .recommendedData
-                                    .value
-                                    .recommSubCategories?[index]?.numOfTracks}",
-                                "${Get
-                                    .find<HomeController>()
-                                    .recommendedData
-                                    .value
-                                    .recommSubCategories?[index]?.name}","${Get
-                                    .find<HomeController>()
-                                    .recommendedData
-                                    .value
-                                    .recommSubCategories?[index]?.Id}"));
-                          }
-                          )
-                      );
-                    }
-                    ),
-
-                  ]),
-            )
+            Expanded(
+              child: GridView.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 4.0,
+                  mainAxisSpacing: 8.0,
+                  children: List.generate(Get
+                      .find<HomeController>()
+                      .recommendedData
+                      .value
+                      .recommSubCategories!
+                      .length, (index) {
+                    return InkWell(onTap: () {
+                      Get.toNamed("/track");
+                    }, child: homeCardWidget("${Get
+                        .find<HomeController>()
+                        .recommendedData
+                        .value
+                        .recommSubCategories?[index]?.coverImage}",
+                        "${Get
+                            .find<HomeController>()
+                            .recommendedData
+                            .value
+                            .recommSubCategories?[index]?.numOfTracks}",
+                        "${Get
+                            .find<HomeController>()
+                            .recommendedData
+                            .value
+                            .recommSubCategories?[index]?.name}","${Get
+                            .find<HomeController>()
+                            .recommendedData
+                            .value
+                            .recommSubCategories?[index]?.Id}"));
+                  }
+                  )
+              ),
+            ),
           ],
-        ),
+        );
+      }
       ),
     );
   }

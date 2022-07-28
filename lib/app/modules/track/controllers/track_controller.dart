@@ -4,6 +4,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
 import 'package:xyz/app/data/trackListmodel.dart';
 import 'package:xyz/app/modules/categories/controllers/categories_controller.dart';
+import 'package:xyz/app/modules/favorite/controllers/favorite_controller.dart';
 import 'package:xyz/app/modules/home/controllers/home_controller.dart';
 import 'package:xyz/services/apicall.dart';
 import 'package:xyz/services/storage.dart';
@@ -53,7 +54,33 @@ class TrackController extends GetxController {
   fevIndex(int index) {
     fetchTrackData();
   }
+  fetchTrackDataNoAdditionInPlayListList() async {
+    mediaItems.clear();
+    loader.value = true;
+    var response = await ApiCall().fetchDataWithoutHeader(
+        '/api/tracks?subCategoryId=${Get.find<CategoriesController>().subCategoriesId.value}&userId=${Get.find<GetStorageService>().getUserId}');
+    trackList.value = TrackList.fromJson(response);
+   /* if (trackList.value.tracks!.length > 0) {
+      for (int i = 0; i < trackList.value.tracks!.length; i++) {
+        mediaItems.add(
+          MediaItem(
+              id: '${trackList.value.tracks?[i]?.Id}',
+              album: '${trackList.value.tracks?[i]?.title}',
+              title: '${trackList.value.tracks?[i]?.title}',
+              artUri: trackList.value.tracks?[i]?.thumbnailImage == null
+                  ? Uri.parse("${trackList.value.tracks?[i]?.thumbnailImage}")
+                  : Uri.parse("${trackList.value.tracks?[i]?.thumbnailImage}"),
+              artist: '${trackList.value.tracks?[i]?.artist}',
+              extras: {
+                'url': '${trackList.value.tracks?[i]?.audioTrack}',
+                'isFav':'${trackList.value.tracks?[i]?.isFavourite}'
+              }),
+        );
+      }
 
+    }*/
+    loader.value = false;
+  }
    fetchTrackData() async {
      mediaItems.clear();
     loader.value = true;
@@ -82,18 +109,53 @@ class TrackController extends GetxController {
      loader.value = false;
   }
 
+
+  fetchTrackDataLike() async {
+   // mediaItems.clear();
+    loader.value = true;
+    var response = await ApiCall().fetchDataWithoutHeader('/api/tracks?subCategoryId=${Get.find<CategoriesController>().subCategoriesId.value}&userId=${Get.find<GetStorageService>().getUserId}');
+    trackList.value = TrackList.fromJson(response);
+    // if (trackList.value.tracks!.length > 0) {
+    //   for (int i = 0; i < trackList.value.tracks!.length; i++) {
+    //     mediaItems.add(
+    //       MediaItem(
+    //           id: '${trackList.value.tracks?[i]?.Id}',
+    //           album: '${trackList.value.tracks?[i]?.title}',
+    //           title: '${trackList.value.tracks?[i]?.title}',
+    //           artUri: trackList.value.tracks?[i]?.thumbnailImage == null
+    //               ? Uri.parse("${trackList.value.tracks?[i]?.thumbnailImage}")
+    //               : Uri.parse("${trackList.value.tracks?[i]?.thumbnailImage}"),
+    //           artist: '${trackList.value.tracks?[i]?.artist}',
+    //           extras: {
+    //             'url': '${trackList.value.tracks?[i]?.audioTrack}',
+    //             'isFav':'${trackList.value.tracks?[i]?.isFavourite}'
+    //           }),
+    //     );
+    //   }
+    //
+    // }
+    loader.value = false;
+  }
+
+
+
+
   Future<void> addFav(String trackId) async {
     var body = jsonEncode({"trackAction": "add", "trackId": trackId});
     var response =
-        await ApiCall().postDataWithHeaderandBody('/api/favorites', body);
-    fetchTrackData();
+    await ApiCall().postDataWithHeaderandBody('/api/favorites', body);
+    Get.find<HomeController>().onInit();
+    //fetchTrackDataNoAdditionInPlayListList();
+    fetchTrackDataLike();
   }
 
   Future<void> removeFav(String trackId) async {
     var body = jsonEncode({"trackAction": "remove", "trackId": trackId});
     var response =
         await ApiCall().postDataWithHeaderandBody('/api/favorites', body);
-    fetchTrackData();
+    Get.find<HomeController>().onInit();
+
+    fetchTrackDataLike();
   }
 
   Future<void> getFav() async {

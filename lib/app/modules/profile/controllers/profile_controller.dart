@@ -22,9 +22,9 @@ final imageUpload=ImageUpload().obs;
   @override
   void onInit() {
     super.onInit();
-    textEditingControllerMobile.value.text=(Get.find<HomeController>().userDatainfo?.value?.user!.phone).toString();
-    textEditingControllerName.value.text=(Get.find<HomeController>().userDatainfo?.value?.user!.name).toString();
-    textEditingControllerEmail.value.text=(Get.find<HomeController>().userDatainfo?.value?.user!.email).toString();
+    textEditingControllerMobile.value.text=(Get.find<HomeController>().userDatainfo.value.user!.phone).toString();
+    textEditingControllerName.value.text=(Get.find<HomeController>().userDatainfo.value.user!.name).toString();
+    textEditingControllerEmail.value.text=(Get.find<HomeController>().userDatainfo.value.user!.email).toString();
   }
 
   @override

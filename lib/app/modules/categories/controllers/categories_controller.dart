@@ -17,7 +17,10 @@ class CategoriesController extends GetxController with GetSingleTickerProviderSt
   @override
   Future<void> onInit() async {
     super.onInit();
-    tabController = new TabController(length: Get.find<HomeController>().userdetails.value.categories!.length,initialIndex: Get.find<HomeController>().selectedCategoriesIndex.value, vsync: this);
+   // _handleTabSelection();
+   // print("initial index = ${}");
+    tabController = new TabController(length: Get.find<HomeController>().userdetails.value.categories!.length,initialIndex: 0, vsync: this);
+    tabController!.index=Get.find<HomeController>().selectedCategoriesIndex.value;
     tabController!.addListener(_handleTabSelection);
   }
 
